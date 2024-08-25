@@ -15,6 +15,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Activation, Dropout
 from tensorflow.keras.utils import to_categorical, plot_model
 from tensorflow.keras.datasets import mnist
+import pydot
 
 # load mnist dataset
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -28,6 +29,7 @@ y_test = to_categorical(y_test)
 
 # image dimensions (assumed square)
 image_size = x_train.shape[1]
+print(image_size)
 input_size = image_size * image_size
 
 # resize and normalize
@@ -56,7 +58,7 @@ model.summary()
 #
 # enable this if pydot can be installed
 # pip install pydot
-#plot_model(model, to_file='mlp-mnist.png', show_shapes=True)
+plot_model(model, to_file='mlp-mnist.png', show_shapes=True)
 
 # loss function for one-hot vector
 # use of adam optimizer
@@ -73,3 +75,11 @@ _, acc = model.evaluate(x_test,
                         batch_size=batch_size,
                         verbose=0)
 print("\nTest accuracy: %.1f%%" % (100.0 * acc))
+
+'''
+Note:
+- pygraphviz and pydot is required.Install this via pip.
+- In case of any error Install Microsoft Build tools and them to system path.
+- I recommend installing graphviz from it's official website
+- Consider this only if you wanna plot the model.
+'''
